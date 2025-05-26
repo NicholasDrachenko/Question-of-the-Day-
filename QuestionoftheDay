@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Question of the Day</title>
+
+  <!-- Google Fonts: Lekton -->
+  <link href="https://fonts.googleapis.com/css?family=Lekton&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #000;
+      color: yellow;
+      font-family: 'Lekton', monospace;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: -80px;
+    }
+    .question {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    input[type="text"] {
+      font-family: 'Lekton', monospace;
+      font-size: 1.2rem;
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: 2px solid yellow;
+      border-radius: 5px;
+      background-color: #111;
+      color: yellow;
+      outline: none;
+      text-align: center;
+    }
+    input[type="text"]::placeholder {
+      color: #ffea00cc;
+    }
+    #dateTime {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: yellow;
+      font-family: 'Lekton', monospace;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: yellow;
+      display: none;
+      text-align: center;
+    }
+    #finalDateTime {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: yellow;
+      font-family: 'Lekton', monospace;
+    }
+    footer {
+      background-color: #000;
+      text-align: center;
+      padding: 15px;
+      font-size: 1rem;
+      color: yellow;
+      font-family: 'Lekton', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Question of the Day
+  </header>
+
+  <main>
+    <div class="question" id="questionText">Loading question...</div>
+    <input type="text" id="answerBox" placeholder="Type your answer here..." />
+    <div id="dateTime"></div>
+    <div id="message">Come back tomorrow for a new question!</div>
+    <div id="finalDateTime" style="display: none;"></div>
+  </main>
+
+  <footer>
+    Created by Nicholas Drachenko
+  </footer>
+
+  <script>
+    const questions = [
+      "What are you most grateful for today?",
+      "What do you want your legacy to be?",
+      "What is something you wish more people knew about you?",
+      "What fear would you face today if you were guaranteed success?",
+      "What does 'happiness' mean to you personally?",
+      "When was the last time you felt truly alive?",
+      "Who has made the biggest impact on your life, and why?",
+      "What belief do you hold that many people might disagree with?",
+      "How do you define love?",
+      "What’s a decision that changed your life forever?",
+      "What habit do you most want to change, and why?",
+      "What’s something you’re avoiding, and why are you avoiding it?",
+      "If money weren’t a factor, how would you spend your days?",
+      "What would your ideal day look like from start to finish?",
+      "What does success mean to you?",
+      "When do you feel most at peace?",
+      "What memory always makes you smile?",
+      "What’s a lesson you learned the hard way?",
+      "What is your biggest dream in life?",
+      "How do you want to grow this year?",
+      "What part of yourself are you most proud of?",
+      "If you could relive one moment in your life, what would it be?",
+      "What do you need to let go of?",
+      "What’s something you wish you could say to someone?",
+      "What makes you feel alive?",
+      "How do you recharge your energy?",
+      "What inspires you the most?",
+      "What do you need to forgive yourself for?",
+      "What’s a truth you’re currently running from?",
+      "If today was your last day, how would you spend it?",
+      "What does your inner voice say most often?",
+      "What legacy do you want to leave in your relationships?",
+      "What does freedom look like for you?",
+      "When did you last feel truly seen?",
+      "What’s a fear you’ve already overcome?",
+      "What advice would you give your younger self?",
+      "How do you define fulfillment?",
+      "Who or what lights you up inside?",
+      "What’s a goal you’ve been putting off?",
+      "How do you show love to others?",
+      "What’s something you’ve never said out loud until now?",
+      "Where do you feel most at home?",
+      "What are three values you live by?",
+      "How do you respond to failure?",
+      "What makes a good life?",
+      "What are you most afraid of losing?",
+      "What is something that grounds you?",
+      "What’s the best compliment you’ve ever received?",
+      "What makes you feel most confident?",
+      "What motivates you when you feel down?",
+    ];
+
+    const today = new Date();
+    const startDate = new Date('2025-05-20T00:00:00');
+    const timeDiff = today.setHours(0, 0, 0, 0) - startDate.setHours(0, 0, 0, 0);
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayIndex = Math.floor(timeDiff / oneDay);
+    const questionIndex = dayIndex % questions.length;
+
+    const questionDiv = document.getElementById('questionText');
+    const input = document.getElementById('answerBox');
+    const message = document.getElementById('message');
+    const dateTimeLive = document.getElementById('dateTime');
+    const finalDateTime = document.getElementById('finalDateTime');
+
+    questionDiv.textContent = questions[questionIndex];
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const lastAnsweredDate = localStorage.getItem('lastAnsweredDate');
+    const savedTimestamp = localStorage.getItem('answerTimestamp');
+
+    if (lastAnsweredDate === todayStr && savedTimestamp) {
+      input.style.display = 'none';
+      message.style.display = 'block';
+      dateTimeLive.style.display = 'none';
+      finalDateTime.textContent = savedTimestamp;
+      finalDateTime.style.display = 'block';
+    }
+
+    input.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && input.value.trim() !== '') {
+        const timestamp = new Date().toLocaleString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric',
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+        });
+        localStorage.setItem('lastAnsweredDate', todayStr);
+        localStorage.setItem('answerTimestamp', timestamp);
+        input.style.display = 'none';
+        message.style.display = 'block';
+        dateTimeLive.style.display = 'none';
+        finalDateTime.textContent = timestamp;
+        finalDateTime.style.display = 'block';
+      }
+    });
+
+    function updateDateTime() {
+      const now = new Date();
+      const formatted = now.toLocaleString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      });
+      dateTimeLive.textContent = formatted;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+</body>
+</html>
