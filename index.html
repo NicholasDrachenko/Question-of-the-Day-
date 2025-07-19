@@ -43,6 +43,13 @@
     }
     li {
       margin: 15px 0;
+      cursor: pointer;
+    }
+    li:hover {
+      color: black;
+      background-color: yellow;
+      padding: 5px;
+      transition: all 0.3s ease;
     }
     footer {
       margin-top: auto;
@@ -58,13 +65,13 @@
   <div id="dateTime"></div>
 
   <ul>
-    <li>Work on personal art project</li>
-    <li>Work on business project</li>
-    <li>Focus on modeling</li>
-    <li>Read one book</li>
-    <li>Take a Coursera course</li>
-    <li>Sketch my ideas into my book</li>
-    <li>Post a work of art online</li>
+    <li id="art">Work on personal art project</li>
+    <li id="business">Work on business project</li>
+    <li id="modeling">Focus on modeling</li>
+    <li id="book">Read one book</li>
+    <li id="course">Take a Coursera course</li>
+    <li id="sketch">Sketch my ideas into my book</li>
+    <li id="post">Post a work of art online</li>
   </ul>
 
   <footer>Created by Nicholas Drachenko</footer>
@@ -82,6 +89,24 @@
 
     updateDateTime();
     setInterval(updateDateTime, 1000);
+
+    // Click-to-navigate logic
+    const links = {
+      art: 'art.html',
+      business: 'business.html',
+      modeling: 'modeling.html',
+      book: 'book.html',
+      course: 'course.html',
+      sketch: 'sketch.html',
+      post: 'post.html'
+    };
+
+    Object.keys(links).forEach(id => {
+      const item = document.getElementById(id);
+      item.addEventListener('click', () => {
+        window.location.href = links[id];
+      });
+    });
   </script>
 
 </body>
