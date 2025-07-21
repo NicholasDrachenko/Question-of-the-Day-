@@ -37,6 +37,7 @@
       border: 3px solid yellow;
       border-radius: 10px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
     .gallery img:hover {
       transform: scale(1.03);
@@ -53,6 +54,25 @@
       background-color: yellow;
       padding: 5px;
     }
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 5px solid yellow;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
@@ -60,12 +80,27 @@
   <header>My Art Projects</header>
 
   <div class="gallery">
-    <img src="IMG_9056.jpeg" alt="Colorful painting with a blue heart and the word 'confidence'" title="Confidence – Acrylic on Canvas">
-    <img src="IMG_9062.jpeg" alt="Painting with a heart, flowers, and cup in a wider shot" title="Confidence (Wide View)">
-    <img src="IMG_9065.jpeg" alt="Vibrant painting featuring stick figures, cup, and bright colors" title="Community & Confidence">
+    <img src="images/IMG_9056.jpeg" alt="Colorful painting with a blue heart and the word 'confidence'" title="Confidence – Acrylic on Canvas" onclick="openLightbox(this.src)">
+    <img src="images/IMG_9062.jpeg" alt="Painting with a heart, flowers, and cup in a wider shot" title="Confidence (Wide View)" onclick="openLightbox(this.src)">
+    <img src="images/IMG_9065.jpeg" alt="Vibrant painting featuring stick figures, cup, and bright colors" title="Community & Confidence" onclick="openLightbox(this.src)">
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Full-size artwork">
   </div>
 
   <a href="index.html" class="back">← Back to Main Page</a>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  </script>
 
 </body>
 </html>
