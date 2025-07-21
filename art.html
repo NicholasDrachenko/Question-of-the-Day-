@@ -1,9 +1,71 @@
 <!DOCTYPE html>
-<html>
-<head><title>Art Project</title></head>
-<body style="background:black; color:yellow; font-family:'Lekton', monospace;">
-  <h1>🎨 Work on Personal Art Project</h1>
-  <p>This is your dedicated page for working on your art ideas.</p>
-  <a href="index.html" style="color:yellow;">← Back to Creative Space</a>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Art Projects</title>
+  <link href="https://fonts.googleapis.com/css?family=Lekton&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: yellow;
+      font-family: 'Lekton', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      font-size: 2.5rem;
+      margin: 30px 0 10px;
+      text-align: center;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border: 3px solid yellow;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px yellow;
+    }
+    a.back {
+      margin-top: 20px;
+      text-decoration: underline;
+      color: yellow;
+      font-size: 1.1rem;
+    }
+    a.back:hover {
+      color: black;
+      background-color: yellow;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>My Art Projects</header>
+
+  <div class="gallery">
+    <img src="IMG_9056.jpeg" alt="Colorful painting with a blue heart and the word 'confidence'" title="Confidence – Acrylic on Canvas">
+    <img src="IMG_9062.jpeg" alt="Painting with a heart, flowers, and cup in a wider shot" title="Confidence (Wide View)">
+    <img src="IMG_9065.jpeg" alt="Vibrant painting featuring stick figures, cup, and bright colors" title="Community & Confidence">
+  </div>
+
+  <a href="index.html" class="back">← Back to Main Page</a>
+
 </body>
 </html>
