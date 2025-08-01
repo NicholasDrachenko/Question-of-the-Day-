@@ -22,38 +22,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
+      text-align: center;
     }
     header {
       font-size: 3rem;
       font-weight: bold;
-      padding: 20px;
-      text-align: center;
+      margin-bottom: 20px;
     }
     #dateTime {
       font-size: 1.1rem;
       margin-bottom: 40px;
     }
-    ul {
-      list-style-type: square;
-      padding: 0;
-      margin: 0;
-      font-size: 1.5rem;
-      text-align: left;
-    }
-    li {
-      margin: 15px 0;
-      cursor: pointer;
-    }
-    li:hover {
-      color: black;
-      background-color: yellow;
-      padding: 5px;
-      transition: all 0.3s ease;
+    .coming-soon {
+      font-size: 2rem;
+      font-style: italic;
     }
     footer {
-      margin-top: auto;
-      padding: 15px;
+      position: absolute;
+      bottom: 10px;
       font-size: 1rem;
       color: yellow;
     }
@@ -63,17 +50,7 @@
 
   <header>Creative Space</header>
   <div id="dateTime"></div>
-
-  <ul>
-    <li id="art">Work on personal art project</li>
-    <li id="business">Work on business project</li>
-    <li id="modeling">Focus on modeling</li>
-    <li id="book">Read one book</li>
-    <li id="course">Take a Coursera course</li>
-    <li id="sketch">Sketch my ideas into my book</li>
-    <li id="post">Post a work of art online</li>
-  </ul>
-
+  <div class="coming-soon">Coming Soon</div>
   <footer>Created by Nicholas Drachenko</footer>
 
   <script>
@@ -89,24 +66,6 @@
 
     updateDateTime();
     setInterval(updateDateTime, 1000);
-
-    // Click-to-navigate logic
-    const links = {
-      art: 'art.html',
-      business: 'business.html',
-      modeling: 'modeling.html',
-      book: 'book.html',
-      course: 'course.html',
-      sketch: 'sketch.html',
-      post: 'post.html'
-    };
-
-    Object.keys(links).forEach(id => {
-      const item = document.getElementById(id);
-      item.addEventListener('click', () => {
-        window.location.href = links[id];
-      });
-    });
   </script>
 
 </body>
